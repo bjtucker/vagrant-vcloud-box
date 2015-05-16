@@ -5,7 +5,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.vm.box = "box-cutter/ubuntu1404-desktop"
+  config.vm.box = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
   config.vm.hostname = "vagrant-vcloud-box"
 
   config.vm.provision "shell", path: "scripts/fix-resolv-conf.sh", privileged: false # only needed for vApp in vCloud
@@ -16,11 +16,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", path: "scripts/install-vagrantfile.sh", privileged: false
   config.vm.provision "shell", path: "scripts/install-ssh-keys.sh", privileged: false
   config.vm.provision "shell", path: "scripts/install-node.sh", privileged: false
-  config.vm.provision "shell", path: "scripts/install-xrdp.sh", privileged: false
-  config.vm.provision "shell", path: "scripts/install-rdesktop.sh", privileged: false
-  config.vm.provision "shell", path: "scripts/install-chrome.sh", privileged: false
-  config.vm.provision "shell", path: "scripts/set-german.sh", privileged: false
-  config.vm.provision "shell", path: "scripts/restart-gnome-and-apply-gsettings.sh", privileged: false
 
   config.vm.provision :serverspec do |spec|
     spec.pattern = 'test/*_spec.rb'
@@ -29,7 +24,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
 
   config.vm.provider "virtualbox" do |vb|
-    vb.gui = true
     vb.memory = 1024
     vb.cpus = 2
     vb.customize ["modifyvm", :id, "--vram", "256"]
@@ -42,7 +36,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   ["vmware_fusion", "vmware_workstation"].each do |provider|
     config.vm.provider provider do |v, override|
-      v.gui = true
       v.vmx["memsize"] = "1024"
       v.vmx["numvcpus"] = "2"
       v.vmx["mks.enable3d"] = "TRUE"
