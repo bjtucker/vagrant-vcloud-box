@@ -29,12 +29,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.memory = 1024
     vb.cpus = 2
-    vb.customize ["modifyvm", :id, "--vram", "256"]
-    vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
-    vb.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
-    vb.customize ["setextradata", "global", "GUI/MaxGuestResolution", "any"]
-    vb.customize ["setextradata", :id, "CustomVideoMode1", "1024x768x32"]
-    vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
+    vb.customize ["modifyvm", :id, "--accelerate3d", "off"]
   end
 
   ["vmware_fusion", "vmware_workstation"].each do |provider|
