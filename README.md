@@ -1,21 +1,17 @@
 vagrant-vcloud-box
 ==================
 
-Ubuntu Desktop box with preinstalled Vagrant and vagrant-vcloud plugin
+Ubuntu Server box with preinstalled Vagrant and vagrant-vcloud plugin
 to have a working environment to connect to vCloud.
 
 ## What's inside the box?
 
-* Ubuntu 14.04 Desktop (with german keyboard and timezone)
+* Ubuntu 14.04 Server
 * [Vagrant 1.7.2](http://vagrantup.com)
 * [vagrant-vcloud 0.4.4](https://github.com/StefanScherer/vagrant-vcloud) Plugin to work with Vagrant in vCloud, special pre-release
-* rdesktop for the [`vagrant rdp`](https://docs.vagrantup.com/v2/cli/rdp.html) command
 * rsync to use the synced folder feature of Vagrant to transfer files into the vCloud guests.
 * git to clone GitHub repos
-* Google Chrome to connect to the vCloud Director web interface
 * nodejs + npm to work with [grunt-jenkins](http://documentup.com/sghill/grunt-jenkins) to save/restore Jenkins servers that are also built with `vagrant up`
-
-![Screenshot of vagrant-vcloud-box](pics/screenshot.png)
 
 ## Preparation
 
@@ -135,6 +131,4 @@ Now build the vApp in your vCloud with
 ```
 vagrant up --provider=vcloud
 ```
-
-It also forwards the RDP port, the `xrdp` server is installed, but there is still work to make it work correctly.
 
