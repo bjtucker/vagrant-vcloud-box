@@ -17,8 +17,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", path: "scripts/install-ssh-keys.sh", privileged: false
   config.vm.provision "shell", path: "scripts/install-node.sh", privileged: false
 
-  config.vm.provision :serverspec do |spec|
-    spec.pattern = 'test/*_spec.rb'
+  if Vagrant.has_plugin?("vagrant-serverspec")
+    config.vm.provision :serverspec do |spec|
+      spec.pattern = 'test/*_spec.rb'
+    end
   end
 
   config.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
